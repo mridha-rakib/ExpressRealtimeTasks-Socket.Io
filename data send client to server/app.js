@@ -11,13 +11,17 @@ io.on("connection", (socket) => {
   console.log("A user connected");
 
   // handle form data requests
-  socket.on("formData", (data) => {
-    console.log("Form data received", data);
+  socket.on("formData", (formData) => {
+    console.log("Form data received", formData.data);
 
     io.on("disconnect", () => {
       console.log("A user disconnected");
     });
   });
+});
+
+app.get("/", (req, res) => {
+  res.sendFile(__dirname + "/index.html");
 });
 
 server.listen(3000, () => {
