@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <form id="myForm">
+      <input type="text" name="data" id="dataInput" placeholder="Enter data" />
+      <button type="submit">Submit</button>
+    </form>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      const socket = io();
+
+      document.getElementById("myForm").addEventListener("submit", (event) => {
+        event.preventDefault();
+
+        const formData = {
+          data: document.getElementById("dataInput").value,
+        };
+
+        // Send the form data to the server
+        socket.emit("formData", formData);
+      });
+
+      // Handle the form data when it's received back from the server
+      socket.on("formData", (data) => {
+        console.log("Received form data from the server:", data);
+        // You can update your UI or perform other actions here
+      });
+    </script>
+  </body>
+</html>
